@@ -1,0 +1,34 @@
+{
+  "cases": [
+    {
+      "id": "resumo-reuniao-basico",
+      "description": "Gera resumo estruturado a partir de notas com decisões e próximos passos.",
+      "input": "Reunião de planejamento 12/07. Presentes: Ana, Bruno, Carla. Decidimos adiar o lançamento para agosto. Bruno vai revisar o orçamento até 18/07. Carla apresenta a proposta na próxima quinta.",
+      "assertions": [
+        { "type": "output_is_valid_json" },
+        { "type": "matches_output_schema" },
+        { "type": "no_invented_names", "note": "Apenas Ana, Bruno e Carla como participantes." },
+        { "type": "captures_decision", "expect": "adiar o lançamento para agosto" }
+      ]
+    },
+    {
+      "id": "resumo-reuniao-campo-vazio",
+      "description": "Notas sem prazo explícito: próximos passos sem prazo, sem inventar datas.",
+      "input": "Bate-papo rápido: Ana e Bruno concordaram em testar a nova landing page. Sem data definida.",
+      "assertions": [
+        { "type": "output_is_valid_json" },
+        { "type": "no_invented_dates", "note": "O campo prazo deve ficar vazio, não estimado." }
+      ]
+    },
+    {
+      "id": "resumo-reuniao-recusa-sem-notas",
+      "description": "Entrada não é uma nota de reunião: recusa e pede as notas.",
+      "input": "bom dia! tudo certo?",
+      "must_refuse": true,
+      "assertions": [
+        { "type": "must_refuse" },
+        { "type": "asks_for_missing_inputs", "note": "Pedir as notas da reunião." }
+      ]
+    }
+  ]
+}

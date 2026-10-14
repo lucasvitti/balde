@@ -1,0 +1,72 @@
+{
+  "name": "Balde — Avisos de depreciação",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            { "field": "cronExpression", "expression": "30 8 * * 1" }
+          ]
+        }
+      },
+      "id": "trigger-deprecation",
+      "name": "Toda segunda 08:30",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "url": "https://balde.example.com/api/v1/notify/deprecation",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": { "timeout": 60000 }
+      },
+      "id": "fetch-deprecation",
+      "name": "Buscar depreciações",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [220, 0],
+      "credentials": {
+        "httpHeaderAuth": { "name": "Balde API (Header Auth)" }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const d = $input.first().json;\nreturn (d.emails || []).map((e) => ({ json: e }));"
+      },
+      "id": "split-deprecation",
+      "name": "Um item por curador",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [440, 0]
+    },
+    {
+      "parameters": {
+        "fromEmail": "SEU_EMAIL@gmail.com",
+        "toEmail": "={{ $json.to }}",
+        "subject": "={{ $json.subject }}",
+        "emailFormat": "html",
+        "html": "={{ $json.html }}",
+        "options": {}
+      },
+      "id": "send-deprecation",
+      "name": "Enviar e-mail",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [660, 0],
+      "credentials": {
+        "smtp": { "name": "SMTP Gmail" }
+      }
+    }
+  ],
+  "connections": {
+    "Toda segunda 08:30": { "main": [[{ "node": "Buscar depreciações", "type": "main", "index": 0 }]] },
+    "Buscar depreciações": { "main": [[{ "node": "Um item por curador", "type": "main", "index": 0 }]] },
+    "Um item por curador": { "main": [[{ "node": "Enviar e-mail", "type": "main", "index": 0 }]] }
+  },
+  "settings": {
+    "timezone": "America/Sao_Paulo",
+    "executionOrder": "v1"
+  }
+}

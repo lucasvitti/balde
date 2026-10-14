@@ -1,0 +1,104 @@
+{
+  "name": "Balde — Notificações por item",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            { "field": "minutes", "minutesInterval": 30 }
+          ]
+        }
+      },
+      "id": "trigger-events",
+      "name": "A cada 30 min",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "url": "https://balde.example.com/api/v1/notify/events",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": { "timeout": 30000 }
+      },
+      "id": "fetch-events",
+      "name": "Buscar eventos",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [220, 0],
+      "credentials": {
+        "httpHeaderAuth": { "name": "Balde API (Header Auth)" }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const d = $input.first().json;\nreturn (d.emails || []).map((e) => ({ json: e }));"
+      },
+      "id": "split-events",
+      "name": "Um item por destinatário",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [440, 0]
+    },
+    {
+      "parameters": {
+        "fromEmail": "SEU_EMAIL@gmail.com",
+        "toEmail": "={{ $json.to }}",
+        "subject": "={{ $json.subject }}",
+        "emailFormat": "html",
+        "html": "={{ $json.html }}",
+        "options": {}
+      },
+      "id": "send-events",
+      "name": "Enviar e-mail",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [660, 0],
+      "credentials": {
+        "smtp": { "name": "SMTP Gmail" }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const ids = $('Buscar eventos').first().json.ids || [];\nreturn ids.length ? [{ json: { ids } }] : [];"
+      },
+      "id": "collect-ids",
+      "name": "Consolidar ids",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [880, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://balde.example.com/api/v1/notify/ack",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ ids: $json.ids }) }}",
+        "options": { "timeout": 30000 }
+      },
+      "id": "ack-events",
+      "name": "Confirmar entrega (ack)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [1100, 0],
+      "credentials": {
+        "httpHeaderAuth": { "name": "Balde API (Header Auth)" }
+      }
+    }
+  ],
+  "connections": {
+    "A cada 30 min": { "main": [[{ "node": "Buscar eventos", "type": "main", "index": 0 }]] },
+    "Buscar eventos": { "main": [[{ "node": "Um item por destinatário", "type": "main", "index": 0 }]] },
+    "Um item por destinatário": { "main": [[{ "node": "Enviar e-mail", "type": "main", "index": 0 }]] },
+    "Enviar e-mail": { "main": [[{ "node": "Consolidar ids", "type": "main", "index": 0 }]] },
+    "Consolidar ids": { "main": [[{ "node": "Confirmar entrega (ack)", "type": "main", "index": 0 }]] }
+  },
+  "settings": {
+    "timezone": "America/Sao_Paulo",
+    "executionOrder": "v1"
+  }
+}

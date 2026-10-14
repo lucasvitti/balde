@@ -1,0 +1,12 @@
+{
+  "skillId": "resumo-reuniao",
+  "version": "1.0.0",
+  "capturedAt": "2026-07-31T17:04:35.105Z",
+  "source": "revhub-original",
+  "rollbackHint": "Para rollback manual, restaure os arquivos deste diretorio para governance/skills/<skill>/canonico.",
+  "files": {
+    "skill": "SKILL.md",
+    "evalCases": "eval/cases.json",
+    "outputSchema": "output_schema.json"
+  }
+}

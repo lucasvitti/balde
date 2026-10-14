@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "desc-clara",
+      "text": "Descreve claramente o que é e para que serve",
+      "appliesTo": "both",
+      "check": "ai",
+      "enabled": true
+    },
+    {
+      "id": "gov-escopo",
+      "text": "Declara o que faz e o que NÃO faz / quando recusar",
+      "appliesTo": "both",
+      "check": "ai",
+      "enabled": true
+    },
+    {
+      "id": "fontes",
+      "text": "Não inventa números; aponta as fontes",
+      "appliesTo": "both",
+      "check": "ai",
+      "enabled": true
+    },
+    {
+      "id": "idioma-ptbr",
+      "text": "Conteúdo consistente em pt-BR",
+      "appliesTo": "both",
+      "check": "ai",
+      "enabled": true
+    },
+    {
+      "id": "sem-sensivel",
+      "text": "Sem credenciais ou dados sensíveis",
+      "appliesTo": "both",
+      "check": "ai",
+      "enabled": true
+    },
+    {
+      "id": "gov-owner",
+      "text": "Tem owner e governança definidos",
+      "appliesTo": "both",
+      "check": "rule",
+      "enabled": true
+    },
+    {
+      "id": "okf-frontmatter",
+      "text": "Frontmatter OKF válido (title/type)",
+      "appliesTo": "skill",
+      "check": "rule",
+      "enabled": true
+    },
+    {
+      "id": "tem-caso-recusa",
+      "text": "Tem ao menos um caso de teste de recusa",
+      "appliesTo": "skill",
+      "check": "rule",
+      "enabled": true
+    },
+    {
+      "id": "papel-contexto",
+      "title": "Papel e contexto claros no prompt",
+      "prompt": "Verifique que o prompt abre com papel/contexto claros (ex.: \"Você é um analista sênior...\"), deixando explícito o papel do agente.",
+      "appliesTo": "skill",
+      "enabled": true
+    },
+    {
+      "id": "output-schema",
+      "title": "Schema explícito quando a saída é estruturada",
+      "prompt": "Pelos METADADOS fornecidos (facts): se facts.isStructured = true, confirme que facts.hasOutputSchema = true (existe output_schema.json); caso contrário, aprove.",
+      "appliesTo": "skill",
+      "enabled": true
+    },
+    {
+      "id": "tem-casos-teste",
+      "title": "Tem casos de teste (UAT)",
+      "prompt": "Pelos METADADOS fornecidos (facts), confirme que existe ao menos um caso de teste de aceitação (facts.hasTestCases = true).",
+      "appliesTo": "skill",
+      "enabled": true
+    }
+  ]
+}

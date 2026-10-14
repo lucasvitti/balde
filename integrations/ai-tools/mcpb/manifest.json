@@ -1,0 +1,60 @@
+{
+  "manifest_version": "0.3",
+  "name": "balde-knowledge",
+  "display_name": "Balde de conhecimento",
+  "version": "1.8.5",
+  "description": "Pull governed skills, context and commons from Balde, run its governed DuckDB queries and dataset profiles, push contributions to its curation queue, and author import capsules (spec + compile + submit) — as tools inside Claude.",
+  "author": {
+    "name": "Lucas Vitti"
+  },
+  "server": {
+    "type": "node",
+    "entry_point": "server/mcp-server.mjs",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/server/mcp-server.mjs"
+      ],
+      "env": {
+        "BALDE_API_KEY": "${user_config.balde_api_key}",
+        "BALDE_BASE_URL": "${user_config.balde_base_url}",
+        "BALDE_REPO": "${user_config.balde_repo}"
+      }
+    }
+  },
+  "user_config": {
+    "balde_api_key": {
+      "type": "string",
+      "title": "Balde MCP key",
+      "description": "Deixe em BRANCO se o app do Balde esta instalado nesta maquina — a extensao usa a chave local do app automaticamente. Preencha apenas para um Balde remoto: sua chave pessoal (Configuracoes -> API -> Minhas chaves de API -> Criar nova chave). Fica no cofre do sistema, nunca em texto plano.",
+      "sensitive": true,
+      "required": false
+    },
+    "balde_base_url": {
+      "type": "string",
+      "title": "Balde base URL",
+      "description": "Opcional — mantenha o padrao para o Balde de producao.",
+      "sensitive": false,
+      "required": false,
+      "default": "https://balde.example.com"
+    },
+    "balde_repo": {
+      "type": "string",
+      "title": "Balde (repo)",
+      "description": "Opcional — o balde (repo) onde este conector trabalha; vazio = o balde padrão (corporate). Cada balde é uma partição independente do corpus; o relatório de compilação de cápsulas sempre ecoa o balde ativo.",
+      "sensitive": false,
+      "required": false,
+      "default": ""
+    }
+  },
+  "compatibility": {
+    "platforms": [
+      "win32",
+      "darwin",
+      "linux"
+    ],
+    "runtimes": {
+      "node": ">=18.0.0"
+    }
+  }
+}

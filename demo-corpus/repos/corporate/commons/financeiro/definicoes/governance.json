@@ -1,0 +1,22 @@
+{
+  "lastReviewedAt": "2026-08-06T17:30:13.475Z",
+  "creator": "Balde",
+  "createdAt": "2026-08-06T17:30:13.476Z",
+  "approvals": [
+    {
+      "at": "2026-08-06T17:30:13.476Z",
+      "by": "Balde",
+      "action": "review",
+      "detail": "mantido em dia"
+    },
+    {
+      "at": "2026-08-06T17:30:13.845Z",
+      "by": "Balde",
+      "action": "cadence",
+      "detail": "weekly"
+    }
+  ],
+  "cadence": "weekly",
+  "cadenceLockedAt": "2026-08-06T17:30:13.845Z",
+  "cadenceLockedBy": "Balde"
+}

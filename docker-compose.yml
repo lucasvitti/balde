@@ -1,0 +1,30 @@
+# Hosted 1.x setup (nginx + Authentik). The 2.x runtime listens on 127.0.0.1 only and drops
+# proxy identity headers, so it does not run behind this as is: see README, Quickstart.
+# Balde de conhecimento — one container, published to localhost only.
+# Host nginx (balde.example.com) reverse-proxies + Authentik-gates it.
+services:
+  balde:
+    build: .
+    image: balde-de-conhecimento:latest
+    container_name: balde
+    restart: unless-stopped
+    # Publish to 127.0.0.1 ONLY — public access comes exclusively via nginx.
+    ports:
+      - "127.0.0.1:8098:8098"
+    environment:
+      - PORT=8098
+      # Single corpus mount (three-level namespace): repos/<repo>/{skills,commons}
+      # (each pair its own git ledger) + global roots (users, queue, usage, ...).
+      # All per-root envs derive from this — see src/config.mjs. On first boot after
+      # the layout change, the server migrates a legacy corpus (skills/ at the root)
+      # into repos/corporate/ automatically (src/repos.mjs).
+      - CORPUS_ROOT=/app/corpus
+      - FEEDBACK_WATCH=0
+      - AI_DIRECT_OPENAI=0
+    # Machine-API key (and any secrets) live here, OUTSIDE /opt/balde so a
+    # redeploy (rm -rf /opt/balde) never wipes them. Must exist before `up`.
+    env_file:
+      - /opt/balde-corpus/balde.env
+    # Git-versioned corpus on the host: survives redeploys, git-able, backup-able.
+    volumes:
+      - /opt/balde-corpus:/app/corpus

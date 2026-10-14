@@ -1,0 +1,23 @@
+# Keep secrets and the REAL corpus out of the image entirely.
+.git
+.gitignore
+node_modules
+tools
+secrets
+.env
+.env.local
+.env.example
+.env.*
+*.log
+
+# A real deployment corpus must never ship in the image.
+governance/skills
+**/legado
+
+# Deploy-only assets (runbook, nginx vhost) don't belong in the image.
+deploy
+Dockerfile
+docker-compose.yml
+*.tar
+*.tar.gz
+.DS_Store

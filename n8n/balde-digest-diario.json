@@ -1,0 +1,72 @@
+{
+  "name": "Balde — Digest diário",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            { "field": "cronExpression", "expression": "0 8 * * *" }
+          ]
+        }
+      },
+      "id": "trigger-digest",
+      "name": "Todo dia 08:00",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "url": "https://balde.example.com/api/v1/notify/digest",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": { "timeout": 30000 }
+      },
+      "id": "fetch-digest",
+      "name": "Buscar digest",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [220, 0],
+      "credentials": {
+        "httpHeaderAuth": { "name": "Balde API (Header Auth)" }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const d = $input.first().json;\nreturn (d.emails || []).map((e) => ({ json: e }));"
+      },
+      "id": "split-digest",
+      "name": "Um item por destinatário",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [440, 0]
+    },
+    {
+      "parameters": {
+        "fromEmail": "SEU_EMAIL@gmail.com",
+        "toEmail": "={{ $json.to }}",
+        "subject": "={{ $json.subject }}",
+        "emailFormat": "html",
+        "html": "={{ $json.html }}",
+        "options": {}
+      },
+      "id": "send-digest",
+      "name": "Enviar e-mail",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [660, 0],
+      "credentials": {
+        "smtp": { "name": "SMTP Gmail" }
+      }
+    }
+  ],
+  "connections": {
+    "Todo dia 08:00": { "main": [[{ "node": "Buscar digest", "type": "main", "index": 0 }]] },
+    "Buscar digest": { "main": [[{ "node": "Um item por destinatário", "type": "main", "index": 0 }]] },
+    "Um item por destinatário": { "main": [[{ "node": "Enviar e-mail", "type": "main", "index": 0 }]] }
+  },
+  "settings": {
+    "timezone": "America/Sao_Paulo",
+    "executionOrder": "v1"
+  }
+}

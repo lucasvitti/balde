@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "repos": [
+    { "name": "corporate", "titulo": "Corporativo", "groups": [], "profile": "full", "createdAt": "2026-08-23T00:00:00.000Z" }
+  ]
+}

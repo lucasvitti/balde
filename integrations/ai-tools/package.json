@@ -1,0 +1,16 @@
+{
+  "name": "balde-ai-tools",
+  "version": "1.3.1",
+  "description": "LLM tools over Balde's /api/v1 skills corpus: MCP server + Anthropic/OpenAI tool schemas + GPT Action OpenAPI. Zero dependencies.",
+  "type": "module",
+  "private": true,
+  "bin": {
+    "balde-knowledge-mcp": "./mcp-server.mjs"
+  },
+  "scripts": {
+    "smoke": "node examples/smoke.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "entries": [
+    {
+      "id": "resumo-reuniao-v-1.0.0-20260731T170435Z",
+      "skillId": "resumo-reuniao",
+      "action": "publish",
+      "version": "1.0.0",
+      "previousVersion": "1.0.0",
+      "approvedAt": "2026-07-31T17:04:35.105Z",
+      "approvedBy": "owner nao informado",
+      "author": "owner nao informado",
+      "summary": "Alteracao aprovada pelo owner",
+      "sourceSkillPath": "C:\\Users\\lucas\\OneDrive\\Desktop\\claude_wksp\\balde\\Hackaton\\demo-corpus\\skills\\resumo-reuniao\\SKILL.md",
+      "workingSkillPath": "C:\\Users\\lucas\\OneDrive\\Desktop\\claude_wksp\\balde\\Hackaton\\demo-corpus\\skills\\resumo-reuniao\\SKILL.md",
+      "changeRequest": {},
+      "paths": {
+        "canonico": "demo-corpus/skills/resumo-reuniao/canonico/SKILL.md",
+        "legado": "demo-corpus/skills/resumo-reuniao/legado/20260731T170435Z-v1.0.0/SKILL.md",
+        "legadoDir": "demo-corpus/skills/resumo-reuniao/legado/20260731T170435Z-v1.0.0",
+        "canonicalEvalCases": "demo-corpus/skills/resumo-reuniao/canonico/eval/cases.json",
+        "canonicalOutputSchema": "demo-corpus/skills/resumo-reuniao/canonico/output_schema.json",
+        "legacyEvalCases": "demo-corpus/skills/resumo-reuniao/legado/20260731T170435Z-v1.0.0/eval/cases.json",
+        "legacyOutputSchema": "demo-corpus/skills/resumo-reuniao/legado/20260731T170435Z-v1.0.0/output_schema.json",
+        "legacyMetadata": "demo-corpus/skills/resumo-reuniao/legado/20260731T170435Z-v1.0.0/metadata.json",
+        "review": "demo-corpus/skills/resumo-reuniao/logs/code-review-20260731T170435Z-v1.0.0.md",
+        "changeLogJson": "demo-corpus/skills/resumo-reuniao/logs/change-log.json",
+        "changeLogMarkdown": "demo-corpus/skills/resumo-reuniao/logs/change-log.md"
+      }
+    }
+  ]
+}

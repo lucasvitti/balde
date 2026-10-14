@@ -1,0 +1,31 @@
+{
+  "name": "balde-de-conhecimento",
+  "version": "2.0.21",
+  "private": true,
+  "description": "Balde de conhecimento (Knowledge pail) — painel de governanca de skills de IA para owners e curadores.",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "secret:generate-key": "node scripts/secrets.mjs generate-key",
+    "secret:encrypt-openai": "node scripts/secrets.mjs encrypt-env OPENAI_API_KEY secrets/openai_api_key.enc.json openai_api_key",
+    "secret:save-openai-local": "powershell -ExecutionPolicy Bypass -File scripts/save-openai-env-local.ps1",
+    "governance:generate": "node scripts/generate-governance-suggestions.mjs",
+    "governance:generate:openai": "powershell -ExecutionPolicy Bypass -File scripts/run-governance-with-openai.ps1 -Mode generate",
+    "dev:openai": "powershell -ExecutionPolicy Bypass -File scripts/run-governance-with-openai.ps1 -Mode server",
+    "test": "node --test tests/*.test.mjs",
+    "check": "eslint server.js src public/app.js public/dataProvider.js public/session.js public/features tests tools eslint.config.mjs",
+    "format": "prettier --write server.js src public/app.js public/dataProvider.js public/session.js public/features tests tools eslint.config.mjs package.json",
+    "format:check": "prettier --check server.js src public/app.js public/dataProvider.js public/session.js public/features tests tools eslint.config.mjs package.json"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "license": "Apache-2.0",
+  "author": "Lucas Vitti",
+  "devDependencies": {
+    "eslint": "10.12.0",
+    "globals": "17.13.0",
+    "prettier": "3.9.9"
+  }
+}

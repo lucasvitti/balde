@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "generatedAt": "2026-08-06T19:44:43.967Z",
+  "entries": {
+    "receita.csv": {
+      "description": "Tabela receita mensal por segmento (colunas mes, segmento, receita), jan–fev 2026.",
+      "markdown": "| mes | segmento | receita |\n| --- | --- | --- |\n| jan | b2c | 1000 |\n| jan | b2b | 2500 |\n| fev | b2c | 1200 |\n| fev | b2b | 2600 |",
+      "hash": "aa2046b5d70840b6d927f6f63ef0e22a39290310",
+      "model": "mock",
+      "at": "2026-08-06T19:44:43.967Z"
+    }
+  }
+}

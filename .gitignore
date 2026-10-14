@@ -1,0 +1,11 @@
+.env
+.env.*
+!.env.example
+*.log
+secrets/*.key
+secrets/*.plaintext
+secrets/*.txt
+node_modules/
+/tools/*
+!/tools/feature-contracts-rule.mjs
+!/tools/verify-package.mjs

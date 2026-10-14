@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": ["resumo", "decisoes", "proximos_passos", "participantes"],
+  "properties": {
+    "resumo": { "type": "string" },
+    "decisoes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "proximos_passos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["responsavel", "acao"],
+        "properties": {
+          "responsavel": { "type": "string" },
+          "acao": { "type": "string" },
+          "prazo": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "participantes": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": false
+}

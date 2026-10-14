@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "generatedAt": "2026-08-06T19:44:43.962Z",
+  "entries": {
+    "chart.png": {
+      "description": "Gráfico de barras: receita mensal crescente de jan a dez, pico em dezembro (~R$ 1,2M).",
+      "hash": "b3ac87f2ec9b7588df0d814ea2938347a0fb5fa3",
+      "model": "mock",
+      "at": "2026-08-06T19:44:43.962Z"
+    }
+  }
+}
